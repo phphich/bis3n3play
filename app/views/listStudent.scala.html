@@ -1,0 +1,29 @@
+@(students:List[Student])
+<link rel="stylesheet" href="/assets/stylesheets/bootstrap3/css/bootstrap.css">
+<h1>ข้อมูลนักศึกษา</h1>
+<table class="table table-stripe table-hover">
+    <tr>
+        <th>รหัส</th>
+        <th>ชื่อ-สกุล</th>
+        <th>สาขา</th>
+        <th>เกรดเฉลี่ย</th>
+        <th><a href="/getNewStudent" class="btn btn-success">
+            Add New Student</a></th>    </tr>
+    @for(student<-students){
+        <tr>
+            <td>@student.getId</td>
+            <td>@student.getName</td>
+            <td>@student.getMajor</td>
+            <td>@student.getGpa</td>
+            <td>
+                <a href="/getUpdateStudent/@student.getId">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="/deleteStudent/@student.getId"
+                onclick="return confirm('โปรดยืนยันการลบข้อมูลในรายการที่เลือก')" >
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>            </td>        </tr>    }</table>
+
+
+
+

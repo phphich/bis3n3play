@@ -1,0 +1,20 @@
+@(myForm:Form[Student])
+@import helper._;
+
+<h1>Update Student</h1>
+@helper.form(action=routes.Application.updateStudent()){
+    @inputText(myForm("id"), '_label->"รหัสนักศึกษา", 'size->"15", 'maxlength->"13", 'readonly->"readonly")
+    @inputText(myForm("name"), '_label->"ชื่อนักศึกษา", 'size->"35", 'maxlength->"30")
+    @inputRadioGroup(myForm("major"), options=Seq("BIS"->"BIS", "BMG"->"BMG", "BAC"->"BAC", "BMK"->"BMK"),
+        '_label->"สังกัดสาขา")
+    @inputText(myForm("gpa"), '_label->"เกรดเฉลี่ยสะสม", 'size->"10",
+    'pattern->"[0-4]{1}[0-9,.]{3}")
+    <input type="submit" value="บันทึก">
+    <input type="reset" value="ยกเลิก">
+}
+    @if(flash.containsKey("err")) {
+        <p style="background-color: red;color: white">
+            Error!<br>
+            @flash.get("err")
+        </p>
+    }

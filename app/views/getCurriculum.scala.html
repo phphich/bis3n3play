@@ -1,0 +1,24 @@
+@(myForm:Form[Curriculum], facultyList: List[Faculty])
+@import helper._;
+
+<h1>Input New Curriculum</h1>
+@helper.form(action=routes.Application.createCurriculum()){
+    @inputText(myForm("id"), '_label->"รหัสหลักสูตร", 'size->"15", 'maxlength->"13")
+    @inputText(myForm("thName"), '_label->"ชื่อหลักสูตร (ไทย)", 'size->"35", 'maxlength->"30")
+    @inputText(myForm("engName"), '_label->"ชื่อหลักสูตร (ภาษาอังกฤษ)", 'size->"35", 'maxlength->"30")
+    @inputRadioGroup(myForm("level"),
+        options=Seq("ปริญญาตรี"->"ปริญญาตรี", "ปริญญาโท"->"ปริญญาโท", "ปริญญาเอก"->"ปริญญาเอก"),
+        '_label->"ระดัยการศึกษา")
+    @inputText(myForm("year"), '_label->"จำนวนปีที่ศึกษา", 'size->"10",
+    'pattern->"[2-4]{1}")
+    @select(myForm("faculty.id"),
+        options=facultyList.map(fac=>fac.getId->fac.getName), '_label->"สังกัดคณะ" )
+    <input type="submit" value="บันทึก">
+    <input type="reset" value="ยกเลิก">
+}
+    @if(flash.containsKey("err")) {
+        <p style="background-color: red;color: white">
+            Error!<br>
+            @flash.get("err")
+        </p>
+    }
